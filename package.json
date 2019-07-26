@@ -1,0 +1,24 @@
+{
+  "name": "nmcrud",
+  "version": "1.0.0",
+  "description": "Basico CRUD usando node e mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafaelmauricioaraujo/nmcrud.git"
+  },
+  "keywords": [
+    "node",
+    "mongo",
+    "crud"
+  ],
+  "author": "Rafael Araujo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafaelmauricioaraujo/nmcrud/issues"
+  },
+  "homepage": "https://github.com/rafaelmauricioaraujo/nmcrud#readme"
+}
