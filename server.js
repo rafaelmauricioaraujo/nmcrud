@@ -30,8 +30,21 @@ MongoClient.connect(uri, function(err, client){
 });
 
 app.get('/', function(req, res){
+    res.render('index.ejs')
+});
+
+app.get('/', function(req, res){
     let cursor = db.collection('data').find()
 });
+
+app.get('/show', function(req, res){
+    db.collection('data').find().toArray(function(err, results){
+        if(err){
+            return console.log(err);
+        }
+        res.render('show.ejs',{data:results});
+    })
+})
 
 app.post('/show', function(req, res){
     db.collection('data').save(req.body, function(err, result){
@@ -40,10 +53,7 @@ app.post('/show', function(req, res){
         }
 
         console.log('salvo no banco de dados');
-        res.redirect('/');
-
-        db.collection('data').find().toArray(function(err, results){
-            console.log(results);
-        })
+        res.redirect('/show');
+        
     });
 });
