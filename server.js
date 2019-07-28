@@ -22,7 +22,7 @@ MongoClient.connect(uri, function(err, client){
     if(err){
         return console.log(err);
     }
-    db = client.db('test').collection('devices');
+    db = client.db('test')
     
     app.listen(3000, function(){
         console.log('Server running on port 3000');
@@ -30,9 +30,20 @@ MongoClient.connect(uri, function(err, client){
 });
 
 app.get('/', function(req, res){
-    res.render('index.ejs')
+    let cursor = db.collection('data').find()
 });
 
 app.post('/show', function(req, res){
-    console.log(req.body)
+    db.collection('data').save(req.body, function(err, result){
+        if(err){
+            return console.log(err);
+        }
+
+        console.log('salvo no banco de dados');
+        res.redirect('/');
+
+        db.collection('data').find().toArray(function(err, results){
+            console.log(results);
+        })
+    });
 });
