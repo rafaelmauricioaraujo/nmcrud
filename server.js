@@ -57,3 +57,35 @@ app.post('/show', function(req, res){
         
     });
 });
+
+app.route('/edit/:id')
+.get(function(req, res){
+    let id = req.params.id
+
+    db.collection('data').find(ObjectId(id)).toArray(function(err, result){
+        if(err){
+            return res.send(err);
+        }
+        res.render('edit.ejs', {data: result});
+    });
+});
+
+.post(function(req, res){
+    let id = req.params.id;
+    let name = req.body.name;
+    let surname = req.body.surname;
+
+    db.collection('data').updateOne({_id:ObjectId(id)},{
+        $set:{
+            name:name,
+            surname:surname
+        }
+    }, function(err, result){
+        if(err){
+            return res.send(err)
+        }
+        res.redirect('/show')
+        console.log('Atualizado no banco de dados');
+    })
+
+})
