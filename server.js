@@ -67,8 +67,8 @@ app.route('/edit/:id')
             return res.send(err);
         }
         res.render('edit.ejs', {data: result});
-    });
-});
+    })
+})
 
 .post(function(req, res){
     let id = req.params.id;
