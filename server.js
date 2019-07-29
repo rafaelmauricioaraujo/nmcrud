@@ -42,7 +42,7 @@ app.get('/show', function(req, res){
         if(err){
             return console.log(err);
         }
-        res.render('show.ejs',{data:results});
+        res.render('show.ejs',{data:results})
     })
 })
 
@@ -51,7 +51,6 @@ app.post('/show', function(req, res){
         if(err){
             return console.log(err);
         }
-
         console.log('salvo no banco de dados');
         res.redirect('/show');
         
