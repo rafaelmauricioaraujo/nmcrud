@@ -61,13 +61,11 @@ app.post('/show', function(req, res){
 app.route('/edit/:id')
 .get(function(req, res){
     let id = req.params.id
-    console.log(id);
 
     db.collection('data').find(ObjectId(id)).toArray(function(err, result){
         if(err){
             return res.send(err);
         }
-        console.log("result: " + result)
         res.render('edit.ejs', {data: result});
     })
 })
@@ -90,4 +88,17 @@ app.route('/edit/:id')
         console.log('Atualizado no banco de dados');
     })
 
+})
+
+app.route('/delete/:id')
+.get(function(req, res){
+    let id = req.params.id
+
+    db.collection('data').deleteOne({_id:ObjectId(id)}, function(err, result){
+        if(err){
+            return res.send(500, err);
+        }
+        console.log('Registro deletado no banco de dados');
+        res.redirect('/show')
+    })
 })
