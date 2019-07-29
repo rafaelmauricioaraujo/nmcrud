@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const uri = 'mongodb+srv://araujo:21nael24@cluster0-tpni9.mongodb.net/test?retryWrites=true&w=majority';
+const ObjectId = require('mongodb').ObjectId;
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
@@ -59,13 +60,14 @@ app.post('/show', function(req, res){
 
 app.route('/edit/:id')
 .get(function(req, res){
-    var id = req.params.id
+    let id = req.params.id
     console.log(id);
 
     db.collection('data').find(ObjectId(id)).toArray(function(err, result){
         if(err){
             return res.send(err);
         }
+        console.log("result: " + result)
         res.render('edit.ejs', {data: result});
     })
 })
