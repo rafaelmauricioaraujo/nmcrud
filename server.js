@@ -59,7 +59,8 @@ app.post('/show', function(req, res){
 
 app.route('/edit/:id')
 .get(function(req, res){
-    let id = req.params.id
+    var id = req.params.id
+    console.log(id);
 
     db.collection('data').find(ObjectId(id)).toArray(function(err, result){
         if(err){
