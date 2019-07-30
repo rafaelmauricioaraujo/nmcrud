@@ -8,18 +8,19 @@ const ObjectId = require('mongodb').ObjectId;
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
-/////maneira fornecida diretamente pelo Mongo Atlas
+//maneira fornecida diretamente pelo Mongo Atlas
 
-//const MongoClient = require('mongodb').MongoClient;
-//const uri = "mongodb+srv://araujo:21nael24@cluster0-tpni9.mongodb.net/test?retryWrites=true&w=majority";
 //const client = new MongoClient(uri, { useNewUrlParser: true });
 //client.connect(err => {
-//  const collection = client.db("test").collection("devices");
-//  // perform actions on the collection object
-//  client.close();
+//  dbCollection = client.db("test").collection("data");
+//
+//  app.listen(3000, function(){
+//    console.log('Server running on port 3000');
+//    })
+//  
 //});
 
-MongoClient.connect(uri, function(err, client){
+MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client){
     if(err){
         return console.log(err);
     }
@@ -43,18 +44,18 @@ app.get('/show', function(req, res){
         if(err){
             return console.log(err);
         }
+        console.log("acessando lista de dados da collections")
         res.render('show.ejs',{data:results})
     })
 })
 
 app.post('/show', function(req, res){
-    db.collection('data').save(req.body, function(err, result){
+    db.collection.save(req.body, function(err, result){
         if(err){
             return console.log(err);
         }
         console.log('salvo no banco de dados');
-        res.redirect('/show');
-        
+        res.redirect('/show');        
     });
 });
 
@@ -87,13 +88,11 @@ app.route('/edit/:id')
         res.redirect('/show')
         console.log('Atualizado no banco de dados');
     })
-
 })
 
 app.route('/delete/:id')
 .get(function(req, res){
-    let id = req.params.id
-
+    let id = req.params.id;
     db.collection('data').deleteOne({_id:ObjectId(id)}, function(err, result){
         if(err){
             return res.send(500, err);
