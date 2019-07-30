@@ -11,8 +11,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 //maneira fornecida diretamente pelo Mongo Atlas
 
 //const client = new MongoClient(uri, { useNewUrlParser: true });
-//client.connect(err => {
-//  dbCollection = client.db("test").collection("data");
+//client.connect(function (err, client) {
+//  collection = client.db("test").collection("data");
 //
 //  app.listen(3000, function(){
 //    console.log('Server running on port 3000');
