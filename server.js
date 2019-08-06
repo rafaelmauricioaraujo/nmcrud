@@ -33,7 +33,7 @@ MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client){
 });
 
 app.get('/', function(req, res){
-    res.render('index.ejs')
+    res.render('login.ejs')
 });
 
 app.get('/', function(req, res){
