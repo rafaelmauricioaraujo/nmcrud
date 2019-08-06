@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const uri = 'mongodb+srv://araujo:21nael24@cluster0-tpni9.mongodb.net/test?retryWrites=true&w=majority';
 const ObjectId = require('mongodb').ObjectId;
+const port = 3000;
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
@@ -25,9 +26,9 @@ MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client){
         return console.log(err);
     }
     db = client.db('test')
-    
-    app.listen(3000, function(){
-        console.log('Server running on port 3000');
+
+    app.listen(port, function(){
+        console.log('Server running on port',port);
     });
 });
 
