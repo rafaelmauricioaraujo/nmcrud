@@ -59,6 +59,17 @@ MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client){
     });
 });
 
+app.get('/login', function(req, res){
+    if(req.query.fail){
+        res.render('login.ejs', {message: 'Usuário e/ou senha incorretos'});
+    }else{
+        res.render('login.ejs', {message: null});
+    }
+});
+
+app.post('/login', 
+    passport.authenticate('local', {successRedirect: '/show', failureRedirect: '/login'}));
+
 app.get('/', function(req, res){
     res.render('login.ejs', {message:null})
 });
