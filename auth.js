@@ -15,5 +15,13 @@ module.exports = function(passport){
         });
     }
 
-    
+    passport.serializeUser(function(user, done){
+        done(null, user_id);
+    });
+
+    passport.deserializeUser(function(user, done){
+        findUserById(id, function(err, user){
+            done(err, done);
+        });
+    });
 }
