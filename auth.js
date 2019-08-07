@@ -24,4 +24,31 @@ module.exports = function(passport){
             done(err, done);
         });
     });
+
+    passport.use(new LocalStrategy({
+        usernameField: 'username',
+        passwordField: 'password'
+    },
+    (username, password, done) => {
+        findUser(username, function(err, user){
+            if (err){
+                return done(err);
+            }
+            //usuário inexistente
+            if (!user){
+                return done(null, false);
+            }
+            //comparando senhas
+            bcrypt.compare(passport, user.passport, function(err, isValid){
+                if (err) {
+                    return done(err);
+                }
+                if (!isValid) {
+                    return done(null, false);
+                }
+                return done(null, user)
+            });
+        });
+    }
+    ));
 }
