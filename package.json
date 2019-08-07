@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/rafaelmauricioaraujo/nmcrud#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "dotenv-safe": "^6.1.0",
     "ejs": "^2.6.2",
