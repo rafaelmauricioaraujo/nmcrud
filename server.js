@@ -11,7 +11,6 @@ const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
-
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -25,8 +24,17 @@ app.use(session({
     resave: false,
     saveUninitialized: false
   }));
-  app.use(passport.initialize());
-  app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
+
+function authenticationMiddleware () {  
+    return function (req, res, next) {
+      if (req.isAuthenticated()) {
+        return next()
+      }
+      res.redirect('/login?fail=true')
+    }
+}
 
 //maneira fornecida diretamente pelo Mongo Atlas
 
