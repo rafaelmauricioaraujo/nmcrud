@@ -6,8 +6,27 @@ const uri = 'mongodb+srv://araujo:21nael24@cluster0-tpni9.mongodb.net/test?retry
 const ObjectId = require('mongodb').ObjectId;
 const port = 3000;
 
+//autenticação
+const passport = require('passport');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
+
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
+
+//configurando a autenticação
+app.use(session({  
+    store: new MongoStore({
+      db: global.db,
+      ttl: 30 * 60 // = 30 minutos de sessão
+    }),
+    secret: '123',//configure um segredo seu aqui
+    resave: false,
+    saveUninitialized: false
+  }));
+  app.use(passport.initialize());
+  app.use(passport.session());
 
 //maneira fornecida diretamente pelo Mongo Atlas
 
